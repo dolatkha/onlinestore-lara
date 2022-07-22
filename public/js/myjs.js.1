@@ -1,0 +1,322 @@
+all= {
+    "bread": [
+        {
+            "name": "نان تست",
+            "price": "ریال ۱۰۰.۰۰۰",
+            "image": "bread1.jpg",
+
+        },
+        {
+            "name": "نان کراواسان",
+            "price": "ریال ۱۵۰.۰۰۰",
+            "image": "bread2.jpg",
+
+        },
+        {
+            "name": "نان خرمایی",
+            "price": "ریال ۲۰۰.۰۰۰",
+            "image": "bread3.jpg",
+
+        },
+        {
+            "name": "نان باگت",
+            "price": "ریال ۵۰.۰۰۰",
+            "image": "bread4.jpg",
+
+        },
+        {
+            "name": "نان بربری",
+            "price": "ریال ۴۰.۰۰۰",
+            "image": "bread5.jpg",
+
+        }
+    ],
+
+    "cake": [
+        {
+            "name": "کیک سفارشی",
+            "price": "از ۴۰۰.۰۰۰ ریال",
+            "image": "cake1.jpg",
+
+        },
+        {
+            "name": "کیک ازدواج",
+            "price": "از ۹۰۰.۰۰۰ ریال",
+            "image": "cake2.jpg",
+
+        },
+        {
+            "name": "کیک تولد",
+            "price": "از ۵۰۰.۰۰۰ ریال",
+            "image": "cake3.jpg",
+
+        },
+        {
+            "name": "کیک مافین",
+            "price": "از ۲۵۰.۰۰۰ ریال",
+            "image": "cake4.jpg",
+
+        },
+        {
+            "name": "کیک خونگی",
+            "price": "از ۳۵۰.۰۰۰ ریال",
+            "image": "cake5.jpg",
+
+        }
+    ],
+
+    "food": [
+        {
+            "name": "کوفته",
+            "price": " ۳۰۰.۰۰۰ ریال",
+            "image": "food3.jpg",
+
+        },
+        {
+            "name": "کباب تابه ای",
+            "price": " ۹۰۰.۰۰۰ ریال",
+            "image": "food2.jpg",
+
+        },
+        {
+            "name": "آش رشته",
+            "price": " ۱۰۰.۰۰۰ ریال",
+            "image": "food1.jpg",
+
+        },
+        {
+            "name": "قرمه سبزی",
+            "price": " ۴۰۰.۰۰۰ ریال",
+            "image": "food4.jpg",
+
+        },
+        {
+            "name": "چلو گوشت",
+            "price": " ۹۰۰.۰۰۰ ریال",
+            "image": "food5.jpg",
+
+        }
+    ],
+};
+
+$(document).ready(function (){
+    $("a:not([href])").click(function (){
+        event.preventDefault();
+        event.stopPropagation();
+        all=$('.casecademenu ul');
+        prnt=$(this).parentsUntil(' ul.casecademenu');
+        th=$(this).next();
+        prnt.push(th[0]);
+        for (i=0;i<all.length;i++){
+            found=false;
+            for (j=0;j<prnt.length;j++){
+                if (all[i]==prnt[j]){
+                    found=true;
+                }
+            }
+            if (found==false){
+                $(all[i]).slideUp();
+            }
+        }
+        $(this).next().slideToggle('slow');
+    });
+
+    $(".txt").fadeOut(3000);
+
+    show=function (){
+        document.getElementById('menuid').classList.toggle('d-none');
+    };
+
+    showitem=function (value,index,array){
+        document.getElementById('breadid').innerHTML=document.getElementById('breadid').innerHTML+'<div class="swiper-slide col-4 wow slideInRight" data-wow-duration="4s">'+'<div class="card box shadow">'+'<div class="card-img pb-5 text-center">'+'<img class="img-fluid" src="image/'+value.image+'">'+'</div>'+'<div class="card-body text-center p-0">'+'<div class="txtbread1">'+value.name+'</div>'+'<div class="txtbread2 py-3">'+value.price+'</div>'+'<div class="card-footer text-center">'+'<div class="btn btn-secondary py-2" onclick="additem(1,'+index+',event)">'+'اضافه کردن به سبد خرید'+'</div>'+'</div>'+'</div>';
+    };
+    all.bread.forEach(showitem);
+
+    showitem=function (value,index,array){
+        document.getElementById('cakeid').innerHTML=document.getElementById('cakeid').innerHTML+'<div class="swiper-slide col-4 wow slideInLeft" data-wow-duration="4s">'+'<div class="card box shadow">'+'<div class="card-img pb-5 text-center">'+'<img class="img-fluid" src="image/'+value.image+'">'+'</div>'+'<div class="card-body text-center p-0">'+'<div class="txtbread1">'+value.name+'</div>'+'<div class="txtbread2 py-3">'+value.price+'</div>'+'<div class="card-footer text-center">'+'<div class="btn btn-secondary py-2" onclick="additem(2,'+index+',event)" >'+'اضافه کردن به سبد خرید'+'</div>'+'</div>'+'</div>';
+    };
+    all.cake.forEach(showitem);
+
+    showitem=function (value,index,array){
+        document.getElementById('foodid').innerHTML=document.getElementById('foodid').innerHTML+'<div class="swiper-slide col-4  wow slideInRight " data-wow-duration="4s">'+'<div class="card box shadow">'+'<div class="card-img pb-5 text-center">'+'<img class="img-fluid" src="image/'+value.image+'">'+'</div>'+'<div class="card-body text-center p-0">'+'<div class="txtbread1">'+value.name+'</div>'+'<div class="txtbread2 py-3">'+value.price+'</div>'+'<div class="card-footer text-center">'+'<div class="btn btn-secondary py-2" onclick="additem(3,'+index+',event)" >'+'اضافه کردن به سبد خرید'+'</div>'+'</div>'+'</div>';
+    };
+    all.food.forEach(showitem);
+
+    sabad=[];
+    additem=function (dir,index,e) {
+        if (useractive==false){
+            e.preventDefault();
+            alert('لطفا وارد حساب کاربری خود شوید');
+        }
+        else {
+            if (dir==1){
+                if (sabad.indexOf(all.bread[index])!=-1 ){
+                    alert('قبلا انتخاب شده!');
+                    return;
+                }
+                item=all.bread[index];
+                sabad.push(item);
+            }
+            else if (dir==2){
+                if (sabad.indexOf(all.cake[index])!=-1 ){
+                    alert('قبلا انتخاب شده!');
+                    return;
+                }
+                item=all.cake[index];
+                sabad.push(item);
+            }
+            else if (dir==3){
+                if (sabad.indexOf(all.food[index])!=-1 ){
+                    alert('قبلا انتخاب شده!');
+                    return;
+                }
+                item=all.food[index];
+                sabad.push(item);
+            }
+            document.getElementById('badgeid').innerHTML = sabad.length;
+            document.getElementById('basketid').innerHTML=document.getElementById('basketid').innerHTML+'<div class="col-md-4 float-start bread-m">'+'<div class="card box shadow">'+'<div class="card-img pb-5">'+'<img class="img-fluid" src="image/'+item.image+'">'+'</div>'+'<div class="card-body text-center p-0">'+'<div class="txtbread1">'+item.name+'</div>'+'<div class="txtbread2 py-3">'+item.price+'</div>'+'<div class="card-footer text-center">'+'<button class="btn btn-outline-danger m-2"onclick="deleteitem(this,'+index+')"><i class="fa fa-trash-alt"></i> </button> '+'<br>'+'<label>تعداد: </label>'+
+                '<input type="number" name="some[]" min="0" placeholder="0" class="form-control w-50 d-inline-block ms-2 btn-outline-warning text-black">'
+                + '<input type="hidden" name="key[]" value="'+item.name+'">'+'</div>'+'</div>';
+            if (sabad.length>=1){
+                document.getElementById('subsabad').classList.remove('d-none');
+            }
+        }
+    };
+    tedad=[];
+    deleteitem=function (obj,index){
+        checks = $("input[type='number']");
+        for( i=0; i<checks.length; i++){
+            n=$(checks[i]).val();
+            tedad.push(n);
+            console.log(tedad);
+        }
+        del=function (value,index,array){
+            document.getElementById('basketid').innerHTML=document.getElementById('basketid').innerHTML+'<div class="col-md-4 float-start bread-m">'+'<div class="card box shadow">'+'<div class="card-img pb-5">'+'<img class="img-fluid" src="image/'+value.image+'">'+'</div>'+'<div class="card-body text-center p-0">'+'<div class="txtbread1">'+value.name+'</div>'+'<div class="txtbread2 py-3">'+value.price+'</div>'+'<div class="card-footer text-center">'+'<button class="btn btn-outline-danger m-2"onclick="deleteitem(this,'+index+')"><i class="fa fa-trash-alt"></i> </button> '+'<br>'+'<label>تعداد:</label>'+
+                '<input type="number"  name="some[]" value="'+tedad[index]+'" min="0" placeholder="0" class="form-control w-50 d-inline-block ms-2 btn-outline-warning text-black">'+
+                '<input type="hidden" name="key[]" value="'+item.name+'">'+'</div>'+'</div>';
+        }
+        sabad.splice(index, 1);
+        document.getElementById('badgeid').innerHTML = sabad.length;
+        document.getElementById('basketid').innerHTML=' ';
+        sabad.forEach(del);
+        if (sabad.length==0){
+            tedad=[];
+            document.getElementById('subsabad').classList.add('d-none');
+        }
+    };
+
+    searchname=function (){
+        document.getElementById('divsrc').classList.remove('d-none');
+        srcfunction=function (value,index,array){
+            findname=document.getElementById('searchid').value;
+            if (value.name.indexOf(findname)!=-1){
+                document.getElementById('showsearch').innerHTML=document.getElementById('showsearch').innerHTML+'<div class="col-md-3 col-12 float-md-start text-center">'+'<div class="card box shadow">'+'<div class="card-img pb-5">'+'<img class="img-fluid" src="image/'+value.image+'">'+'</div>'+'<div class="card-body text-center p-0">'+'<div class="txtbread1">'+value.name+'</div>'+'<div class="txtbread2 py-3">'+value.price+'</div>'+'<div class="card-footer text-center">'+'<div class="btn btn-secondary py-2"  onclick="additem(1,'+index+',event)">'+'اضافه کردن به سبد خرید'+'</div>'+'</div>'+'</div>';
+            }
+        };
+        all.bread.forEach(srcfunction);
+        srcfunction=function (value,index,array){
+            findname=document.getElementById('searchid').value;
+            if (value.name.indexOf(findname)!=-1){
+                document.getElementById('showsearch').innerHTML=document.getElementById('showsearch').innerHTML+'<div class="col-md-3 col-12 float-start text-center">'+'<div class="card box shadow">'+'<div class="card-img pb-5">'+'<img class="img-fluid" src="image/'+value.image+'">'+'</div>'+'<div class="card-body text-center p-0">'+'<div class="txtbread1">'+value.name+'</div>'+'<div class="txtbread2 py-3">'+value.price+'</div>'+'<div class="card-footer text-center">'+'<div class="btn btn-secondary py-2" onclick="additem(1,'+index+',event)">'+'اضافه کردن به سبد خرید'+'</div>'+'</div>'+'</div>';
+            }
+        };
+        all.cake.forEach(srcfunction);
+        srcfunction=function (value,index,array){
+            findname=document.getElementById('searchid').value;
+            if (value.name.indexOf(findname)!=-1){
+                document.getElementById('showsearch').innerHTML=document.getElementById('showsearch').innerHTML+'<div class="col-md-3 col-12 float-start text-center">'+'<div class="card box shadow">'+'<div class="card-img pb-5">'+'<img class="img-fluid" src="image/'+value.image+'">'+'</div>'+'<div class="card-body text-center p-0">'+'<div class="txtbread1">'+value.name+'</div>'+'<div class="txtbread2 py-3">'+value.price+'</div>'+'<div class="card-footer text-center">'+'<div class="btn btn-secondary py-2" id="addbtn" onclick="additem(1,'+index+',event)">'+'اضافه کردن به سبد خرید'+'</div>'+'</div>'+'</div>';
+            }
+        }
+        all.food.forEach(srcfunction);
+    };
+
+    closepic=function () {
+        document.getElementById('divsrc').classList.add('d-none');
+        document.getElementById('showsearch').innerHTML=" ";
+    };
+
+var swiper = new Swiper(".swiper1", {
+    spaceBetween: 30,
+    centeredSlides: true,
+    effect: "fade",
+    autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+    },
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
+});
+
+var swiper = new Swiper(".swiperbread", {
+    breakpoints: {
+        640: {
+            slidesPerView: 1,
+            spaceBetween: 10
+        },
+        800:{
+            slidesPerView: 3,
+            spaceBetween: 30
+        }
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
+});
+
+var swiper = new Swiper(".swipercake", {
+    breakpoints: {
+        640: {
+            slidesPerView: 1,
+            spaceBetween: 10
+        },
+        800:{
+            slidesPerView: 3,
+            spaceBetween: 30
+        }
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
+});
+
+var swiper = new Swiper(".swiperfood", {
+    breakpoints: {
+        640: {
+            slidesPerView: 1,
+            spaceBetween: 10
+        },
+        800:{
+            slidesPerView: 3,
+            spaceBetween: 30
+        }
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
+});
+
+new WOW().init();
+
+//baraie makhfi kardan pigham exit
+    $('#exit').hide(4000);
+//baraie etminan az ersal be db
+    checksend= (e)=>{
+        if (confirm("آیا از خرید خود اظمینان دارید؟")){
+            return true;
+        }
+        else {
+            e.preventDefault();
+            return false;
+        }
+    }
+
+});
